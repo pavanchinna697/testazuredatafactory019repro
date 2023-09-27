@@ -1,0 +1,179 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory name",
+			"defaultValue": "azuredatafactorytest019"
+		},
+		"LS_ADLSConnection_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'LS_ADLSConnection'"
+		},
+		"LS_Blob_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'LS_Blob'"
+		},
+		"LS_BlobConnetion_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'LS_BlobConnetion'"
+		},
+		"LS_DataGen2_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'LS_DataGen2'"
+		},
+		"LS_SQLDATABASE_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'LS_SQLDATABASE'"
+		},
+		"AzureDataLakeStorage1_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://azuredatalakegen2019.dfs.core.windows.net/"
+		},
+		"LS_ADLSConnection_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://azuredatalakegen2019.dfs.core.windows.net/"
+		},
+		"LS_BlobStorageConnection_properties_typeProperties_serviceEndpoint": {
+			"type": "string",
+			"defaultValue": "https://azuredatablobstorage019.blob.core.windows.net/"
+		},
+		"LS_DataGen2_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://azuredatalakegen2019.dfs.core.windows.net/"
+		},
+		"LS_HTTPSERVER_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "@{linkedService().BaseURL}"
+		},
+		"triggerEventBased_properties_typeProperties_scope": {
+			"type": "string",
+			"defaultValue": "/subscriptions/d9386755-f309-42f1-88a6-66be2513dfad/resourceGroups/TestRG/providers/Microsoft.Storage/storageAccounts/azuredatablobstorage019"
+		},
+		"containerUri": {
+			"type": "string",
+			"metadata": "URI to storage account containing linked ARM templates"
+		},
+		"containerSasToken": {
+			"type": "string",
+			"metadata": "Sas token to storage account containing linked ARM templates"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "azuredatafactorytest019_ArmTemplate_0",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2018-02-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_0.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					},
+					"LS_ADLSConnection_accountKey": {
+						"value": "[parameters('LS_ADLSConnection_accountKey')]"
+					},
+					"LS_Blob_connectionString": {
+						"value": "[parameters('LS_Blob_connectionString')]"
+					},
+					"LS_BlobConnetion_connectionString": {
+						"value": "[parameters('LS_BlobConnetion_connectionString')]"
+					},
+					"LS_DataGen2_accountKey": {
+						"value": "[parameters('LS_DataGen2_accountKey')]"
+					},
+					"LS_SQLDATABASE_connectionString": {
+						"value": "[parameters('LS_SQLDATABASE_connectionString')]"
+					},
+					"LS_ADLSConnection_properties_typeProperties_url": {
+						"value": "[parameters('LS_ADLSConnection_properties_typeProperties_url')]"
+					},
+					"LS_DataGen2_properties_typeProperties_url": {
+						"value": "[parameters('LS_DataGen2_properties_typeProperties_url')]"
+					},
+					"LS_HTTPSERVER_properties_typeProperties_url": {
+						"value": "[parameters('LS_HTTPSERVER_properties_typeProperties_url')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "azuredatafactorytest019_ArmTemplate_1",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2018-02-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_1.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					},
+					"AzureDataLakeStorage1_properties_typeProperties_url": {
+						"value": "[parameters('AzureDataLakeStorage1_properties_typeProperties_url')]"
+					},
+					"LS_BlobStorageConnection_properties_typeProperties_serviceEndpoint": {
+						"value": "[parameters('LS_BlobStorageConnection_properties_typeProperties_serviceEndpoint')]"
+					}
+				}
+			},
+			"dependsOn": [
+				"[resourceId('Microsoft.Resources/deployments', 'azuredatafactorytest019_ArmTemplate_0')]"
+			]
+		},
+		{
+			"name": "azuredatafactorytest019_ArmTemplate_2",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2018-02-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_2.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					}
+				}
+			},
+			"dependsOn": [
+				"[resourceId('Microsoft.Resources/deployments', 'azuredatafactorytest019_ArmTemplate_1')]"
+			]
+		},
+		{
+			"name": "azuredatafactorytest019_ArmTemplate_3",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2018-02-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_3.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					},
+					"triggerEventBased_properties_typeProperties_scope": {
+						"value": "[parameters('triggerEventBased_properties_typeProperties_scope')]"
+					}
+				}
+			},
+			"dependsOn": [
+				"[resourceId('Microsoft.Resources/deployments', 'azuredatafactorytest019_ArmTemplate_2')]"
+			]
+		}
+	]
+}

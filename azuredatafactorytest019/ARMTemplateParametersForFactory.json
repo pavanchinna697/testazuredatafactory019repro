@@ -1,0 +1,42 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "azuredatafactorytest019"
+		},
+		"LS_ADLSConnection_accountKey": {
+			"value": ""
+		},
+		"LS_Blob_connectionString": {
+			"value": ""
+		},
+		"LS_BlobConnetion_connectionString": {
+			"value": ""
+		},
+		"LS_DataGen2_accountKey": {
+			"value": ""
+		},
+		"LS_SQLDATABASE_connectionString": {
+			"value": ""
+		},
+		"AzureDataLakeStorage1_properties_typeProperties_url": {
+			"value": "https://azuredatalakegen2019.dfs.core.windows.net/"
+		},
+		"LS_ADLSConnection_properties_typeProperties_url": {
+			"value": "https://azuredatalakegen2019.dfs.core.windows.net/"
+		},
+		"LS_BlobStorageConnection_properties_typeProperties_serviceEndpoint": {
+			"value": "https://azuredatablobstorage019.blob.core.windows.net/"
+		},
+		"LS_DataGen2_properties_typeProperties_url": {
+			"value": "https://azuredatalakegen2019.dfs.core.windows.net/"
+		},
+		"LS_HTTPSERVER_properties_typeProperties_url": {
+			"value": "@{linkedService().BaseURL}"
+		},
+		"triggerEventBased_properties_typeProperties_scope": {
+			"value": "/subscriptions/d9386755-f309-42f1-88a6-66be2513dfad/resourceGroups/TestRG/providers/Microsoft.Storage/storageAccounts/azuredatablobstorage019"
+		}
+	}
+}
