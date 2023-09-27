@@ -1,0 +1,17 @@
+{
+	"name": "dsofiles01",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_SQLDATABASE",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "DSO",
+			"table": "Table1"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

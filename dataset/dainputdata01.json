@@ -1,0 +1,24 @@
+{
+	"name": "dainputdata01",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_BlobStorageConnection",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "ChatLog Gurupreet and pawan 2022_10_25 11_36.rtf",
+				"container": "raw"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": []
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

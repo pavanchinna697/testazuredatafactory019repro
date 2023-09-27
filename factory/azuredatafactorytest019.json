@@ -1,0 +1,19 @@
+{
+	"name": "azuredatafactorytest019",
+	"location": "eastus",
+	"identity": {
+		"type": "SystemAssigned,UserAssigned",
+		"principalId": "879a3cb0-7795-4c5b-a670-6adeca283556",
+		"tenantId": "f5503673-f2dd-405b-9356-593ade3f16e9",
+		"userAssignedIdentities": {
+			"/subscriptions/d9386755-f309-42f1-88a6-66be2513dfad/resourcegroups/TestRG/providers/Microsoft.ManagedIdentity/userAssignedIdentities/userassignedidentity019": {
+				"clientId": "015cb3fe-5029-4fe8-acfb-51435849d5a8",
+				"principalId": "50c2e71c-19cc-465c-bdf3-2d3bbcca133f"
+			},
+			"/subscriptions/d9386755-f309-42f1-88a6-66be2513dfad/resourcegroups/TestRG/providers/Microsoft.ManagedIdentity/userAssignedIdentities/testuserassignedmi019": {
+				"clientId": "48d8275c-d89c-48c0-9ff0-03239cd5dfda",
+				"principalId": "70efaa7e-9866-471b-9ba7-95832e35d8e3"
+			}
+		}
+	}
+}

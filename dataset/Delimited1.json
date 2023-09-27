@@ -1,0 +1,28 @@
+{
+	"name": "Delimited1",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_BlobStorageConnection",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"SourceFiles": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"container": "raw"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": []
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}
