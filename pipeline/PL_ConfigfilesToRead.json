@@ -1,10 +1,10 @@
 {
-	"name": "PL_LoadFiles",
+	"name": "PL_ConfigfilesToRead",
 	"properties": {
 		"activities": [
 			{
-				"name": "Get MetadataFiles",
-				"type": "GetMetadata",
+				"name": "Lookup1",
+				"type": "Lookup",
 				"dependsOn": [],
 				"policy": {
 					"timeout": "0.12:00:00",
@@ -15,66 +15,45 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
+					"source": {
+						"type": "JsonSource",
+						"storeSettings": {
+							"type": "AzureBlobStorageReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "JsonReadSettings"
+						}
+					},
 					"dataset": {
-						"referenceName": "DelimitedText11",
+						"referenceName": "Json2",
 						"type": "DatasetReference"
 					},
-					"fieldList": [
-						"childItems"
-					],
-					"storeSettings": {
-						"type": "AzureBlobStorageReadSettings",
-						"recursive": true,
-						"enablePartitionDiscovery": false
-					},
-					"formatSettings": {
-						"type": "DelimitedTextReadSettings"
-					}
+					"firstRowOnly": false
 				}
 			},
 			{
-				"name": "FilterFilescsv",
-				"type": "Filter",
-				"dependsOn": [
-					{
-						"activity": "Get MetadataFiles",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
-				"userProperties": [],
-				"typeProperties": {
-					"items": {
-						"value": "@activity('Get MetadataFiles').output.childItems",
-						"type": "Expression"
-					},
-					"condition": {
-						"value": "@endswith(item().name,'.csv')",
-						"type": "Expression"
-					}
-				}
-			},
-			{
-				"name": "ForEachfiles",
+				"name": "ForEach",
 				"type": "ForEach",
 				"dependsOn": [
 					{
-						"activity": "FilterFilescsv",
+						"activity": "Lookup1",
 						"dependencyConditions": [
-							"Succeeded"
+							"Completed"
 						]
 					}
 				],
 				"userProperties": [],
 				"typeProperties": {
 					"items": {
-						"value": "@activity('FilterFilescsv').output.Value",
+						"value": "@activity('Lookup1').output.value",
 						"type": "Expression"
 					},
+					"isSequential": false,
 					"activities": [
 						{
-							"name": "Copy data1",
+							"name": "Copy data",
 							"type": "Copy",
 							"dependsOn": [],
 							"policy": {
@@ -89,20 +68,21 @@
 								"source": {
 									"type": "DelimitedTextSource",
 									"storeSettings": {
-										"type": "AzureBlobStorageReadSettings",
-										"recursive": true,
-										"enablePartitionDiscovery": false
+										"type": "HttpReadSettings",
+										"requestMethod": "GET"
 									},
 									"formatSettings": {
 										"type": "DelimitedTextReadSettings"
 									}
 								},
 								"sink": {
-									"type": "AzureSqlSink",
-									"writeBehavior": "insert",
-									"sqlWriterUseTableLock": false,
-									"tableOption": "autoCreate",
-									"disableMetricsCollection": false
+									"type": "ParquetSink",
+									"storeSettings": {
+										"type": "AzureBlobFSWriteSettings"
+									},
+									"formatSettings": {
+										"type": "ParquetWriteSettings"
+									}
 								},
 								"enableStaging": false,
 								"translator": {
@@ -116,11 +96,15 @@
 							},
 							"inputs": [
 								{
-									"referenceName": "DelimitedText12",
+									"referenceName": "DelimitedText10",
 									"type": "DatasetReference",
 									"parameters": {
-										"SourceFiles": {
-											"value": "@item().name",
+										"SourceBaseURL": {
+											"value": "@item().sourceBaseURL",
+											"type": "Expression"
+										},
+										"SourceRelativeURL": {
+											"value": "@item().sourceRelativeURL",
 											"type": "Expression"
 										}
 									}
@@ -128,12 +112,11 @@
 							],
 							"outputs": [
 								{
-									"referenceName": "AzureSqlTable2",
+									"referenceName": "Parquet1",
 									"type": "DatasetReference",
 									"parameters": {
-										"SchemaName": "dso",
-										"TableName": {
-											"value": "@replace(item().name,'.csv','')",
+										"sinkFileName": {
+											"value": "@concat(replace(item().sinkFileName, '.csv' , '.parquet'))",
 											"type": "Expression"
 										}
 									}
@@ -145,7 +128,7 @@
 			}
 		],
 		"annotations": [],
-		"lastPublishTime": "2023-09-21T05:59:33Z"
+		"lastPublishTime": "2023-09-13T12:11:55Z"
 	},
 	"type": "Microsoft.DataFactory/factories/pipelines"
 }

@@ -1,17 +1,16 @@
 {
-	"name": "DelimitedText2",
+	"name": "DelimitedTextw3",
 	"properties": {
 		"linkedServiceName": {
-			"referenceName": "DataLakeStorage",
+			"referenceName": "LS_HttpServer",
 			"type": "LinkedServiceReference"
 		},
 		"annotations": [],
 		"type": "DelimitedText",
 		"typeProperties": {
 			"location": {
-				"type": "AzureBlobFSLocation",
-				"folderPath": "sales03",
-				"fileSystem": "ouput"
+				"type": "HttpServerLocation",
+				"relativeUrl": "suresh12345/AzureDataEngineering_Batch/main/ecdc_data/country_response.csv"
 			},
 			"columnDelimiter": ",",
 			"escapeChar": "\\",

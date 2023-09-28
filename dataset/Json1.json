@@ -1,24 +1,21 @@
 {
-	"name": "DelimitedText1",
+	"name": "Json1",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "LS_BlobStorage",
 			"type": "LinkedServiceReference"
 		},
 		"annotations": [],
-		"type": "DelimitedText",
+		"type": "Json",
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobStorageLocation",
-				"fileName": "ChatLog Development 2023_04_05 21_31.rtf",
-				"container": "input"
-			},
-			"columnDelimiter": ",",
-			"escapeChar": "\\",
-			"firstRowAsHeader": true,
-			"quoteChar": "\""
+				"fileName": "ecdc_file_list_for_5_files.json",
+				"folderPath": "config",
+				"container": "config"
+			}
 		},
-		"schema": []
+		"schema": {}
 	},
 	"type": "Microsoft.DataFactory/factories/datasets"
 }

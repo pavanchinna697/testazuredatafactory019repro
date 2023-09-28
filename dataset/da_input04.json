@@ -1,17 +1,17 @@
 {
-	"name": "DelimitedText2",
+	"name": "da_input04",
 	"properties": {
 		"linkedServiceName": {
-			"referenceName": "DataLakeStorage",
+			"referenceName": "LS_BlobStorage",
 			"type": "LinkedServiceReference"
 		},
 		"annotations": [],
 		"type": "DelimitedText",
 		"typeProperties": {
 			"location": {
-				"type": "AzureBlobFSLocation",
-				"folderPath": "sales03",
-				"fileSystem": "ouput"
+				"type": "AzureBlobStorageLocation",
+				"fileName": "ChatLog Gurupreet and pawan 2022_10_25 13_08.rtf",
+				"container": "input"
 			},
 			"columnDelimiter": ",",
 			"escapeChar": "\\",

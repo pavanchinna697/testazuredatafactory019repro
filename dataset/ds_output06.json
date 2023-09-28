@@ -1,5 +1,5 @@
 {
-	"name": "DelimitedText2",
+	"name": "ds_output06",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "DataLakeStorage",
@@ -10,7 +10,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"folderPath": "sales03",
+				"folderPath": "sales3",
 				"fileSystem": "ouput"
 			},
 			"columnDelimiter": ",",

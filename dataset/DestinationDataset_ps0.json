@@ -1,5 +1,5 @@
 {
-	"name": "DelimitedText2",
+	"name": "DestinationDataset_ps0",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "DataLakeStorage",
@@ -10,7 +10,6 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"folderPath": "sales03",
 				"fileSystem": "ouput"
 			},
 			"columnDelimiter": ",",

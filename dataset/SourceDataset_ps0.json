@@ -1,8 +1,8 @@
 {
-	"name": "DelimitedText1",
+	"name": "SourceDataset_ps0",
 	"properties": {
 		"linkedServiceName": {
-			"referenceName": "LS_BlobStorage",
+			"referenceName": "BlobStorage",
 			"type": "LinkedServiceReference"
 		},
 		"annotations": [],
@@ -10,15 +10,19 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobStorageLocation",
-				"fileName": "ChatLog Development 2023_04_05 21_31.rtf",
+				"fileName": "ChatLog Gurupreet and pawan 2022_10_25 11_36.rtf",
 				"container": "input"
 			},
 			"columnDelimiter": ",",
 			"escapeChar": "\\",
-			"firstRowAsHeader": true,
-			"quoteChar": "\""
+			"firstRowAsHeader": false,
+			"quoteChar": null
 		},
-		"schema": []
+		"schema": [
+			{
+				"type": "String"
+			}
+		]
 	},
 	"type": "Microsoft.DataFactory/factories/datasets"
 }

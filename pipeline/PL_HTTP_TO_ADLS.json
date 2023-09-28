@@ -48,20 +48,20 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "DS_INputData01",
+						"referenceName": "DelimitedText5",
 						"type": "DatasetReference"
 					}
 				],
 				"outputs": [
 					{
-						"referenceName": "DS_OUtPUTData02",
+						"referenceName": "DelimitedText6",
 						"type": "DatasetReference"
 					}
 				]
 			}
 		],
 		"annotations": [],
-		"lastPublishTime": "2023-09-13T10:15:30Z"
+		"lastPublishTime": "2023-09-13T10:18:38Z"
 	},
 	"type": "Microsoft.DataFactory/factories/pipelines"
 }

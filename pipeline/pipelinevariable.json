@@ -1,11 +1,18 @@
 {
-	"name": "PL_HTTPDATA",
+	"name": "pipelinevariable",
 	"properties": {
 		"activities": [
 			{
 				"name": "Copy data1",
 				"type": "Copy",
-				"dependsOn": [],
+				"dependsOn": [
+					{
+						"activity": "Set variable1",
+						"dependencyConditions": [
+							"Completed"
+						]
+					}
+				],
 				"policy": {
 					"timeout": "0.12:00:00",
 					"retry": 0,
@@ -48,15 +55,15 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "HTTPSERVER01",
+						"referenceName": "DelimitedText8",
 						"type": "DatasetReference",
 						"parameters": {
-							"BaseURL": {
-								"value": "@pipeline().parameters.SourceBaseURL",
+							"SourceBaseURL": {
+								"value": "@variables('SourceBaseURL')",
 								"type": "Expression"
 							},
-							"RelativeURL": {
-								"value": "@pipeline().parameters.SourceRelativeURL",
+							"SourceRelativeURL": {
+								"value": "@variables('SourceRelativeURL')",
 								"type": "Expression"
 							}
 						}
@@ -64,22 +71,38 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "DelimitedText7",
+						"referenceName": "DelimitedText9",
 						"type": "DatasetReference"
 					}
 				]
+			},
+			{
+				"name": "Set variable1",
+				"type": "SetVariable",
+				"dependsOn": [],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "SourceRelativeURL",
+					"value": "suresh12345/AzureDataEngineering_Batch/main/ecdc_data/country_response.csv"
+				}
 			}
 		],
-		"parameters": {
+		"variables": {
 			"SourceBaseURL": {
-				"type": "string"
+				"type": "String",
+				"defaultValue": "https://raw.githubusercontent.com/"
 			},
 			"SourceRelativeURL": {
-				"type": "string"
+				"type": "String",
+				"defaultValue": "suresh12345/AzureDataEngineering_Batch/main/ecdc_data/cases_deaths.csv"
 			}
 		},
 		"annotations": [],
-		"lastPublishTime": "2023-09-13T10:18:38Z"
+		"lastPublishTime": "2023-09-13T12:12:01Z"
 	},
 	"type": "Microsoft.DataFactory/factories/pipelines"
 }

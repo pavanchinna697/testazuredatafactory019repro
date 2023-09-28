@@ -1,11 +1,18 @@
 {
-	"name": "PL_LoadFiles",
+	"name": "loadmetadata",
 	"properties": {
 		"activities": [
 			{
-				"name": "Get MetadataFiles",
+				"name": "Get Metadata",
 				"type": "GetMetadata",
-				"dependsOn": [],
+				"dependsOn": [
+					{
+						"activity": "Validation",
+						"dependencyConditions": [
+							"Completed"
+						]
+					}
+				],
 				"policy": {
 					"timeout": "0.12:00:00",
 					"retry": 0,
@@ -16,11 +23,15 @@
 				"userProperties": [],
 				"typeProperties": {
 					"dataset": {
-						"referenceName": "DelimitedText11",
+						"referenceName": "da_input02",
 						"type": "DatasetReference"
 					},
 					"fieldList": [
-						"childItems"
+						"exists",
+						"itemName",
+						"itemType",
+						"lastModified",
+						"size"
 					],
 					"storeSettings": {
 						"type": "AzureBlobStorageReadSettings",
@@ -33,48 +44,58 @@
 				}
 			},
 			{
-				"name": "FilterFilescsv",
-				"type": "Filter",
-				"dependsOn": [
-					{
-						"activity": "Get MetadataFiles",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
+				"name": "Validation",
+				"type": "Validation",
+				"dependsOn": [],
 				"userProperties": [],
 				"typeProperties": {
-					"items": {
-						"value": "@activity('Get MetadataFiles').output.childItems",
-						"type": "Expression"
+					"dataset": {
+						"referenceName": "da_input03",
+						"type": "DatasetReference"
 					},
-					"condition": {
-						"value": "@endswith(item().name,'.csv')",
-						"type": "Expression"
-					}
+					"timeout": "0.12:00:00",
+					"sleep": 10
 				}
 			},
 			{
-				"name": "ForEachfiles",
-				"type": "ForEach",
+				"name": "If Condition",
+				"type": "IfCondition",
 				"dependsOn": [
 					{
-						"activity": "FilterFilescsv",
+						"activity": "Get Metadata",
 						"dependencyConditions": [
-							"Succeeded"
+							"Completed"
 						]
 					}
 				],
 				"userProperties": [],
 				"typeProperties": {
-					"items": {
-						"value": "@activity('FilterFilescsv').output.Value",
+					"expression": {
+						"value": "@activity('Get Metadata').output.exists",
 						"type": "Expression"
 					},
-					"activities": [
+					"ifFalseActivities": [
 						{
-							"name": "Copy data1",
+							"name": "Web",
+							"type": "WebActivity",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "0.12:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"url": "https://www.google.com/",
+								"method": "GET"
+							}
+						}
+					],
+					"ifTrueActivities": [
+						{
+							"name": "blob-to-adls",
 							"type": "Copy",
 							"dependsOn": [],
 							"policy": {
@@ -98,11 +119,15 @@
 									}
 								},
 								"sink": {
-									"type": "AzureSqlSink",
-									"writeBehavior": "insert",
-									"sqlWriterUseTableLock": false,
-									"tableOption": "autoCreate",
-									"disableMetricsCollection": false
+									"type": "DelimitedTextSink",
+									"storeSettings": {
+										"type": "AzureBlobFSWriteSettings"
+									},
+									"formatSettings": {
+										"type": "DelimitedTextWriteSettings",
+										"quoteAllText": true,
+										"fileExtension": ".txt"
+									}
 								},
 								"enableStaging": false,
 								"translator": {
@@ -116,27 +141,14 @@
 							},
 							"inputs": [
 								{
-									"referenceName": "DelimitedText12",
-									"type": "DatasetReference",
-									"parameters": {
-										"SourceFiles": {
-											"value": "@item().name",
-											"type": "Expression"
-										}
-									}
+									"referenceName": "ds_input04",
+									"type": "DatasetReference"
 								}
 							],
 							"outputs": [
 								{
-									"referenceName": "AzureSqlTable2",
-									"type": "DatasetReference",
-									"parameters": {
-										"SchemaName": "dso",
-										"TableName": {
-											"value": "@replace(item().name,'.csv','')",
-											"type": "Expression"
-										}
-									}
+									"referenceName": "ds_output06",
+									"type": "DatasetReference"
 								}
 							]
 						}
@@ -145,7 +157,7 @@
 			}
 		],
 		"annotations": [],
-		"lastPublishTime": "2023-09-21T05:59:33Z"
+		"lastPublishTime": "2023-09-12T07:37:52Z"
 	},
 	"type": "Microsoft.DataFactory/factories/pipelines"
 }

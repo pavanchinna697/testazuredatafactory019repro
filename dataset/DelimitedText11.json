@@ -1,17 +1,16 @@
 {
-	"name": "DelimitedText2",
+	"name": "DelimitedText11",
 	"properties": {
 		"linkedServiceName": {
-			"referenceName": "DataLakeStorage",
+			"referenceName": "LS_BlobStorage",
 			"type": "LinkedServiceReference"
 		},
 		"annotations": [],
 		"type": "DelimitedText",
 		"typeProperties": {
 			"location": {
-				"type": "AzureBlobFSLocation",
-				"folderPath": "sales03",
-				"fileSystem": "ouput"
+				"type": "AzureBlobStorageLocation",
+				"container": "input"
 			},
 			"columnDelimiter": ",",
 			"escapeChar": "\\",

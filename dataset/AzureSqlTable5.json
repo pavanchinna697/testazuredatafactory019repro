@@ -2,16 +2,8 @@
 	"name": "AzureSqlTable5",
 	"properties": {
 		"linkedServiceName": {
-			"referenceName": "LS_SQLDATABASE",
+			"referenceName": "LS_Sqlserver",
 			"type": "LinkedServiceReference"
-		},
-		"parameters": {
-			"SchemaName": {
-				"type": "string"
-			},
-			"TableName": {
-				"type": "string"
-			}
 		},
 		"annotations": [],
 		"type": "AzureSqlTable",

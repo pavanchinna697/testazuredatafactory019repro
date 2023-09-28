@@ -1,0 +1,15 @@
+{
+	"name": "datafactory017",
+	"location": "eastus",
+	"identity": {
+		"type": "SystemAssigned,UserAssigned",
+		"principalId": "cc85fccb-c8e9-4fc8-b9d9-d1f6816c6630",
+		"tenantId": "f5503673-f2dd-405b-9356-593ade3f16e9",
+		"userAssignedIdentities": {
+			"/subscriptions/d9386755-f309-42f1-88a6-66be2513dfad/resourcegroups/TestKP/providers/Microsoft.ManagedIdentity/userAssignedIdentities/assigneduser017": {
+				"clientId": "d45025fc-ca18-4adc-b797-79ed9a5700c1",
+				"principalId": "8e2b90b3-6113-4615-919f-cbfb83ae2213"
+			}
+		}
+	}
+}

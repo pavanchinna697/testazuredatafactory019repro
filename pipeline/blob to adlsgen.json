@@ -1,9 +1,9 @@
 {
-	"name": "PL_HTTPDATA",
+	"name": "blob to adlsgen",
 	"properties": {
 		"activities": [
 			{
-				"name": "Copy data1",
+				"name": "dsinput01",
 				"type": "Copy",
 				"dependsOn": [],
 				"policy": {
@@ -18,8 +18,10 @@
 					"source": {
 						"type": "DelimitedTextSource",
 						"storeSettings": {
-							"type": "HttpReadSettings",
-							"requestMethod": "GET"
+							"type": "AzureBlobStorageReadSettings",
+							"recursive": true,
+							"wildcardFileName": "*",
+							"enablePartitionDiscovery": false
 						},
 						"formatSettings": {
 							"type": "DelimitedTextReadSettings"
@@ -28,7 +30,8 @@
 					"sink": {
 						"type": "DelimitedTextSink",
 						"storeSettings": {
-							"type": "AzureBlobFSWriteSettings"
+							"type": "AzureBlobFSWriteSettings",
+							"copyBehavior": "FlattenHierarchy"
 						},
 						"formatSettings": {
 							"type": "DelimitedTextWriteSettings",
@@ -48,38 +51,20 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "HTTPSERVER01",
-						"type": "DatasetReference",
-						"parameters": {
-							"BaseURL": {
-								"value": "@pipeline().parameters.SourceBaseURL",
-								"type": "Expression"
-							},
-							"RelativeURL": {
-								"value": "@pipeline().parameters.SourceRelativeURL",
-								"type": "Expression"
-							}
-						}
+						"referenceName": "DelimitedText1",
+						"type": "DatasetReference"
 					}
 				],
 				"outputs": [
 					{
-						"referenceName": "DelimitedText7",
+						"referenceName": "DelimitedText2",
 						"type": "DatasetReference"
 					}
 				]
 			}
 		],
-		"parameters": {
-			"SourceBaseURL": {
-				"type": "string"
-			},
-			"SourceRelativeURL": {
-				"type": "string"
-			}
-		},
 		"annotations": [],
-		"lastPublishTime": "2023-09-13T10:18:38Z"
+		"lastPublishTime": "2023-09-12T07:19:21Z"
 	},
 	"type": "Microsoft.DataFactory/factories/pipelines"
 }

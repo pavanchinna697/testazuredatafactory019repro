@@ -1,22 +1,24 @@
 {
-	"name": "DelimitedText2",
+	"name": "Parquet1",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "DataLakeStorage",
 			"type": "LinkedServiceReference"
 		},
+		"parameters": {
+			"sinkFileName": {
+				"type": "string"
+			}
+		},
 		"annotations": [],
-		"type": "DelimitedText",
+		"type": "Parquet",
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"folderPath": "sales03",
+				"folderPath": "ParquetFolder",
 				"fileSystem": "ouput"
 			},
-			"columnDelimiter": ",",
-			"escapeChar": "\\",
-			"firstRowAsHeader": true,
-			"quoteChar": "\""
+			"compressionCodec": "snappy"
 		},
 		"schema": []
 	},

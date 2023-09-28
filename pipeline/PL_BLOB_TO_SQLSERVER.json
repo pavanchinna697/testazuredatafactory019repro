@@ -1,5 +1,5 @@
 {
-	"name": "PL_HTTPDATA",
+	"name": "PL_BLOB_TO_SQLSERVER",
 	"properties": {
 		"activities": [
 			{
@@ -18,23 +18,20 @@
 					"source": {
 						"type": "DelimitedTextSource",
 						"storeSettings": {
-							"type": "HttpReadSettings",
-							"requestMethod": "GET"
+							"type": "AzureBlobStorageReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
 						},
 						"formatSettings": {
 							"type": "DelimitedTextReadSettings"
 						}
 					},
 					"sink": {
-						"type": "DelimitedTextSink",
-						"storeSettings": {
-							"type": "AzureBlobFSWriteSettings"
-						},
-						"formatSettings": {
-							"type": "DelimitedTextWriteSettings",
-							"quoteAllText": true,
-							"fileExtension": ".txt"
-						}
+						"type": "AzureSqlSink",
+						"writeBehavior": "insert",
+						"sqlWriterUseTableLock": false,
+						"tableOption": "autoCreate",
+						"disableMetricsCollection": false
 					},
 					"enableStaging": false,
 					"translator": {
@@ -48,38 +45,20 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "HTTPSERVER01",
-						"type": "DatasetReference",
-						"parameters": {
-							"BaseURL": {
-								"value": "@pipeline().parameters.SourceBaseURL",
-								"type": "Expression"
-							},
-							"RelativeURL": {
-								"value": "@pipeline().parameters.SourceRelativeURL",
-								"type": "Expression"
-							}
-						}
+						"referenceName": "DS_INPUTDATA01",
+						"type": "DatasetReference"
 					}
 				],
 				"outputs": [
 					{
-						"referenceName": "DelimitedText7",
+						"referenceName": "AzureSqlTable1",
 						"type": "DatasetReference"
 					}
 				]
 			}
 		],
-		"parameters": {
-			"SourceBaseURL": {
-				"type": "string"
-			},
-			"SourceRelativeURL": {
-				"type": "string"
-			}
-		},
 		"annotations": [],
-		"lastPublishTime": "2023-09-13T10:18:38Z"
+		"lastPublishTime": "2023-09-21T05:59:33Z"
 	},
 	"type": "Microsoft.DataFactory/factories/pipelines"
 }
